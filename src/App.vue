@@ -2,8 +2,16 @@
   <section>
     <header><h1>My friends</h1></header>
     <ul>
-      <friend-contact></friend-contact>
-      <friend-contact></friend-contact>
+      <friend-contact
+        v-for="friend in friends"
+        :key="friend.id"
+        :id="friend.id"
+        :name="friend.name"
+        :phone-number="friend.phone"
+        :email-address="friend.email"
+        :is-favorite="friend.isFavorite"
+        @toggle-favorite="toggleFavoriteStatus"
+      ></friend-contact>
     </ul>
   </section>
 </template>
@@ -18,15 +26,24 @@ const app = {
           name: "Can Nguyen",
           phone: "0933966978",
           email: "cannv2@fpt.com",
+          isFavorite: true,
         },
         {
           id: "Y",
           name: "Y Phan",
           phone: "0933966978",
           email: "yptn1@fpt.com",
+          isFavorite: false,
         },
       ],
     };
+  },
+  methods: {
+    toggleFavoriteStatus(friendId) {
+      const friend = this.friends.find((f) => f.id === friendId);
+
+      friend.isFavorite = !friend.isFavorite;
+    },
   },
 };
 export default app;
